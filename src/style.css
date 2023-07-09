@@ -1,0 +1,98 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 100%;
+  height: 100vh;
+}
+
+#content {
+  padding: 2rem;
+  cursor: default;
+  background-image: linear-gradient(
+      225deg,
+      rgba(0, 0, 0, 0.5),
+      rgba(82, 45, 35, 0.7)
+    ),
+    url(../src/asset/bg.jpg);
+  color: #fff;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  max-width: 100%;
+  position: relative;
+  justify-items: center;
+  align-items: center;
+  display: grid;
+  grid-template-rows: 1fr 3fr 3fr;
+  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-areas:
+    "logo . purchase"
+    ". title ."
+    ". paragraph .";
+}
+
+#content {
+  --coffee-color-one: #884a39;
+  --focus-color: #f2c380;
+}
+
+#content svg {
+  grid-area: logo;
+  width: 5rem;
+  height: 5rem;
+  transition: all ease-in 400ms;
+  filter: drop-shadow(0px 0px 10px var(--focus-color));
+}
+
+#content svg:hover {
+  stroke: var(--focus-color) !important;
+  filter: drop-shadow(0px 0px 20px var(--focus-color));
+}
+
+#content button {
+  grid-area: purchase;
+  padding: 1rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: var(--coffee-color-one);
+  outline: none;
+  border: 0;
+  transition: all ease-in 400ms;
+  color: var(--focus-color);
+  border-radius: 20px;
+}
+
+#content button:hover {
+  background-color: var(--focus-color);
+  color: #fff;
+  filter: drop-shadow(0px 0px 10px var(--focus-color));
+}
+
+#content h1 {
+  font-size: 8rem;
+  grid-area: title;
+  transition: all ease-in 300ms;
+}
+
+#content h1:hover {
+  color: var(--focus-color);
+  filter: drop-shadow(0px 0px 20px var(--focus-color));
+}
+
+#content p {
+  grid-area: paragraph;
+  align-self: self-start;
+}
+
+@media only screen and (min-width: 1000px) {
+  #content {
+    padding: 6rem;
+  }
+}
