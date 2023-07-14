@@ -39,6 +39,7 @@ body {
 
 #content {
   padding: 2rem;
+  cursor: default;
   background-image: linear-gradient(
       225deg,
       rgba(0, 0, 0, 0.5),
@@ -46,7 +47,7 @@ body {
     ),
     url(${___CSS_LOADER_URL_REPLACEMENT_0___});
   color: #fff;
-  height: 100%;
+  min-height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -56,26 +57,37 @@ body {
   align-items: center;
   display: grid;
   grid-template-rows: 1fr 3fr 3fr;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   grid-template-areas:
-    "logo . purchase"
-    ". title ."
-    ". paragraph .";
+    "logo tab tab tab purchase"
+    ". title title title ."
+    ". tabcontent tabcontent tabcontent .";
 }
 
 #content {
   --coffee-color-one: #884a39;
-  --focus-color: #ffc26f;
+  --focus-color: #f2c380;
+}
+
+@media only screen and (min-width: 1000px) {
+  #content {
+    padding: 6rem;
+  }
 }
 
 #content svg {
   grid-area: logo;
   width: 5rem;
+  display: block;
+  z-index: 3;
   height: 5rem;
+  transition: all ease-in 400ms;
+  filter: drop-shadow(0px 0px 10px var(--focus-color));
 }
 
 #content svg:hover {
   stroke: var(--focus-color) !important;
+  filter: drop-shadow(0px 0px 20px var(--focus-color));
 }
 
 #content button {
@@ -88,21 +100,164 @@ body {
   background-color: var(--coffee-color-one);
   outline: none;
   border: 0;
-  transition: background-color ease-in 600ms;
+  transition: all ease-in 400ms;
+  color: var(--focus-color);
+  border-radius: 20px;
+}
+
+.buttontab {
+  background-color: var(--focus-color) !important;
+  color: #fff !important;
+  filter: drop-shadow(0px 0px 10px var(--focus-color));
 }
 
 #content button:hover {
   background-color: var(--focus-color);
+  color: #fff;
+  filter: drop-shadow(0px 0px 10px var(--focus-color));
 }
 
-#content h1 {
+#content > h1 {
+  font-size: 8rem;
   grid-area: title;
+  transition: all ease-in 300ms;
 }
 
-#content p {
-  grid-area: paragraph;
+#content > h1:hover {
+  color: var(--focus-color);
+  filter: drop-shadow(0px 0px 20px var(--focus-color));
 }
-`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;EACE,eAAe;EACf,aAAa;AACf;;AAEA;EACE,aAAa;EACb;;;;;2CAK0B;EAC1B,WAAW;EACX,YAAY;EACZ,2BAA2B;EAC3B,4BAA4B;EAC5B,sBAAsB;EACtB,eAAe;EACf,kBAAkB;EAClB,qBAAqB;EACrB,mBAAmB;EACnB,aAAa;EACb,+BAA+B;EAC/B,kCAAkC;EAClC;;;mBAGiB;AACnB;;AAEA;EACE,2BAA2B;EAC3B,sBAAsB;AACxB;;AAEA;EACE,eAAe;EACf,WAAW;EACX,YAAY;AACd;;AAEA;EACE,qCAAqC;AACvC;;AAEA;EACE,mBAAmB;EACnB,aAAa;EACb,yBAAyB;EACzB,eAAe;EACf,iBAAiB;EACjB,WAAW;EACX,yCAAyC;EACzC,aAAa;EACb,SAAS;EACT,0CAA0C;AAC5C;;AAEA;EACE,oCAAoC;AACtC;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,oBAAoB;AACtB","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  max-width: 100%;\n  height: 100vh;\n}\n\n#content {\n  padding: 2rem;\n  background-image: linear-gradient(\n      225deg,\n      rgba(0, 0, 0, 0.5),\n      rgba(82, 45, 35, 0.7)\n    ),\n    url(../src/asset/bg.jpg);\n  color: #fff;\n  height: 100%;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  max-width: 100%;\n  position: relative;\n  justify-items: center;\n  align-items: center;\n  display: grid;\n  grid-template-rows: 1fr 3fr 3fr;\n  grid-template-columns: 1fr 3fr 1fr;\n  grid-template-areas:\n    \"logo . purchase\"\n    \". title .\"\n    \". paragraph .\";\n}\n\n#content {\n  --coffee-color-one: #884a39;\n  --focus-color: #ffc26f;\n}\n\n#content svg {\n  grid-area: logo;\n  width: 5rem;\n  height: 5rem;\n}\n\n#content svg:hover {\n  stroke: var(--focus-color) !important;\n}\n\n#content button {\n  grid-area: purchase;\n  padding: 1rem;\n  text-transform: uppercase;\n  font-size: 1rem;\n  font-weight: bold;\n  color: #fff;\n  background-color: var(--coffee-color-one);\n  outline: none;\n  border: 0;\n  transition: background-color ease-in 600ms;\n}\n\n#content button:hover {\n  background-color: var(--focus-color);\n}\n\n#content h1 {\n  grid-area: title;\n}\n\n#content p {\n  grid-area: paragraph;\n}\n"],"sourceRoot":""}]);
+
+#content div.tabcontent {
+  grid-area: tabcontent;
+  align-self: self-start;
+}
+
+#content .tab {
+  grid-area: tab;
+}
+
+#content .tab .tab1,
+#content .tab .tab2,
+#content .tab .tab3 {
+  margin: 1.1rem;
+  padding: 1.3rem;
+}
+
+#content .tab .tab2,
+#content .tab .tab3 {
+  margin-left: 2rem;
+}
+
+#content .tabcontent .containeropenandreserv {
+  display: flex;
+  flex-direction: row;
+  min-width: 100%;
+  min-height: 100%;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+}
+
+#content .tabcontent .containeropenandreserv .openinghours {
+  background-color: #44251d;
+  padding: 3rem;
+  border-radius: 20px 0 0 20px;
+  min-height: 100%;
+}
+
+#content .tabcontent .containeropenandreserv .openinghours h1 {
+  margin-bottom: 1rem;
+}
+
+#content
+  .tabcontent
+  .containeropenandreserv
+  .openinghours
+  ul
+  li:not(
+    #content
+      .tabcontent
+      .containeropenandreserv
+      .openinghours
+      ul
+      li:last-of-type
+  ) {
+  margin-bottom: 1rem;
+}
+#content .tabcontent .containeropenandreserv .openinghours ul li {
+  list-style: none;
+}
+
+#content .tabcontent .containeropenandreserv .tablereserve {
+  background-color: #311b14;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-radius: 0 20px 20px 0;
+  padding: 1rem;
+}
+
+#content .tabcontent .card h1,
+#content .tabcontent .card p {
+  font-size: 1rem;
+  text-align: center;
+}
+
+#content .tabcontent .tab3 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-items: center;
+  align-items: center;
+}
+
+#content .tabcontent {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1328px) {
+  #content .tabcontent {
+    flex-direction: column;
+  }
+  #content .tabcontent .card {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+#content .card {
+  background-color: var(--coffee-color-one);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  border-radius: 20px;
+  margin-right: 1rem;
+  padding: 1rem;
+}
+
+#content .card > img {
+  max-width: 50%;
+  border-radius: 20px;
+}
+
+#content .card > .container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+}
+`, "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT,UAAU;EACV,sBAAsB;AACxB;;AAEA;EACE,eAAe;EACf,aAAa;AACf;;AAEA;EACE,aAAa;EACb,eAAe;EACf;;;;;2CAK0B;EAC1B,WAAW;EACX,gBAAgB;EAChB,2BAA2B;EAC3B,4BAA4B;EAC5B,sBAAsB;EACtB,eAAe;EACf,kBAAkB;EAClB,qBAAqB;EACrB,mBAAmB;EACnB,aAAa;EACb,+BAA+B;EAC/B,qCAAqC;EACrC;;;0CAGwC;AAC1C;;AAEA;EACE,2BAA2B;EAC3B,sBAAsB;AACxB;;AAEA;EACE;IACE,aAAa;EACf;AACF;;AAEA;EACE,eAAe;EACf,WAAW;EACX,cAAc;EACd,UAAU;EACV,YAAY;EACZ,6BAA6B;EAC7B,oDAAoD;AACtD;;AAEA;EACE,qCAAqC;EACrC,oDAAoD;AACtD;;AAEA;EACE,mBAAmB;EACnB,aAAa;EACb,yBAAyB;EACzB,eAAe;EACf,iBAAiB;EACjB,WAAW;EACX,yCAAyC;EACzC,aAAa;EACb,SAAS;EACT,6BAA6B;EAC7B,yBAAyB;EACzB,mBAAmB;AACrB;;AAEA;EACE,+CAA+C;EAC/C,sBAAsB;EACtB,oDAAoD;AACtD;;AAEA;EACE,oCAAoC;EACpC,WAAW;EACX,oDAAoD;AACtD;;AAEA;EACE,eAAe;EACf,gBAAgB;EAChB,6BAA6B;AAC/B;;AAEA;EACE,yBAAyB;EACzB,oDAAoD;AACtD;;AAEA;EACE,qBAAqB;EACrB,sBAAsB;AACxB;;AAEA;EACE,cAAc;AAChB;;AAEA;;;EAGE,cAAc;EACd,eAAe;AACjB;;AAEA;;EAEE,iBAAiB;AACnB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,eAAe;EACf,gBAAgB;EAChB,iBAAiB;EACjB,uBAAuB;EACvB,qBAAqB;AACvB;;AAEA;EACE,yBAAyB;EACzB,aAAa;EACb,4BAA4B;EAC5B,gBAAgB;AAClB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;;;;;;;;;;;;;EAaE,mBAAmB;AACrB;AACA;EACE,gBAAgB;AAClB;;AAEA;EACE,yBAAyB;EACzB,gBAAgB;EAChB,aAAa;EACb,sBAAsB;EACtB,uBAAuB;EACvB,qBAAqB;EACrB,4BAA4B;EAC5B,aAAa;AACf;;AAEA;;EAEE,eAAe;EACf,kBAAkB;AACpB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,iBAAiB;EACjB,qBAAqB;EACrB,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,mBAAmB;EACnB,qBAAqB;EACrB,WAAW;EACX,YAAY;EACZ,mBAAmB;AACrB;;AAEA;EACE;IACE,sBAAsB;EACxB;EACA;IACE,eAAe;IACf,mBAAmB;EACrB;AACF;;AAEA;EACE,yCAAyC;EACzC,WAAW;EACX,YAAY;EACZ,aAAa;EACb,mBAAmB;EACnB,qBAAqB;EACrB,mBAAmB;EACnB,mBAAmB;EACnB,kBAAkB;EAClB,aAAa;AACf;;AAEA;EACE,cAAc;EACd,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,qBAAqB;EACrB,mBAAmB;AACrB","sourcesContent":["* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  max-width: 100%;\n  height: 100vh;\n}\n\n#content {\n  padding: 2rem;\n  cursor: default;\n  background-image: linear-gradient(\n      225deg,\n      rgba(0, 0, 0, 0.5),\n      rgba(82, 45, 35, 0.7)\n    ),\n    url(../src/asset/bg.jpg);\n  color: #fff;\n  min-height: 100%;\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  max-width: 100%;\n  position: relative;\n  justify-items: center;\n  align-items: center;\n  display: grid;\n  grid-template-rows: 1fr 3fr 3fr;\n  grid-template-columns: repeat(5, 1fr);\n  grid-template-areas:\n    \"logo tab tab tab purchase\"\n    \". title title title .\"\n    \". tabcontent tabcontent tabcontent .\";\n}\n\n#content {\n  --coffee-color-one: #884a39;\n  --focus-color: #f2c380;\n}\n\n@media only screen and (min-width: 1000px) {\n  #content {\n    padding: 6rem;\n  }\n}\n\n#content svg {\n  grid-area: logo;\n  width: 5rem;\n  display: block;\n  z-index: 3;\n  height: 5rem;\n  transition: all ease-in 400ms;\n  filter: drop-shadow(0px 0px 10px var(--focus-color));\n}\n\n#content svg:hover {\n  stroke: var(--focus-color) !important;\n  filter: drop-shadow(0px 0px 20px var(--focus-color));\n}\n\n#content button {\n  grid-area: purchase;\n  padding: 1rem;\n  text-transform: uppercase;\n  font-size: 1rem;\n  font-weight: bold;\n  color: #fff;\n  background-color: var(--coffee-color-one);\n  outline: none;\n  border: 0;\n  transition: all ease-in 400ms;\n  color: var(--focus-color);\n  border-radius: 20px;\n}\n\n.buttontab {\n  background-color: var(--focus-color) !important;\n  color: #fff !important;\n  filter: drop-shadow(0px 0px 10px var(--focus-color));\n}\n\n#content button:hover {\n  background-color: var(--focus-color);\n  color: #fff;\n  filter: drop-shadow(0px 0px 10px var(--focus-color));\n}\n\n#content > h1 {\n  font-size: 8rem;\n  grid-area: title;\n  transition: all ease-in 300ms;\n}\n\n#content > h1:hover {\n  color: var(--focus-color);\n  filter: drop-shadow(0px 0px 20px var(--focus-color));\n}\n\n#content div.tabcontent {\n  grid-area: tabcontent;\n  align-self: self-start;\n}\n\n#content .tab {\n  grid-area: tab;\n}\n\n#content .tab .tab1,\n#content .tab .tab2,\n#content .tab .tab3 {\n  margin: 1.1rem;\n  padding: 1.3rem;\n}\n\n#content .tab .tab2,\n#content .tab .tab3 {\n  margin-left: 2rem;\n}\n\n#content .tabcontent .containeropenandreserv {\n  display: flex;\n  flex-direction: row;\n  min-width: 100%;\n  min-height: 100%;\n  flex-wrap: nowrap;\n  justify-content: center;\n  align-content: center;\n}\n\n#content .tabcontent .containeropenandreserv .openinghours {\n  background-color: #44251d;\n  padding: 3rem;\n  border-radius: 20px 0 0 20px;\n  min-height: 100%;\n}\n\n#content .tabcontent .containeropenandreserv .openinghours h1 {\n  margin-bottom: 1rem;\n}\n\n#content\n  .tabcontent\n  .containeropenandreserv\n  .openinghours\n  ul\n  li:not(\n    #content\n      .tabcontent\n      .containeropenandreserv\n      .openinghours\n      ul\n      li:last-of-type\n  ) {\n  margin-bottom: 1rem;\n}\n#content .tabcontent .containeropenandreserv .openinghours ul li {\n  list-style: none;\n}\n\n#content .tabcontent .containeropenandreserv .tablereserve {\n  background-color: #311b14;\n  min-height: 100%;\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-content: center;\n  border-radius: 0 20px 20px 0;\n  padding: 1rem;\n}\n\n#content .tabcontent .card h1,\n#content .tabcontent .card p {\n  font-size: 1rem;\n  text-align: center;\n}\n\n#content .tabcontent .tab3 {\n  display: flex;\n  flex-direction: row;\n  flex-wrap: nowrap;\n  justify-items: center;\n  align-items: center;\n}\n\n#content .tabcontent {\n  display: flex;\n  flex-direction: row;\n  justify-items: center;\n  width: 100%;\n  height: 100%;\n  align-items: center;\n}\n\n@media only screen and (max-width: 1328px) {\n  #content .tabcontent {\n    flex-direction: column;\n  }\n  #content .tabcontent .card {\n    margin-right: 0;\n    margin-bottom: 1rem;\n  }\n}\n\n#content .card {\n  background-color: var(--coffee-color-one);\n  width: 100%;\n  height: 100%;\n  display: flex;\n  flex-direction: row;\n  justify-items: center;\n  align-items: center;\n  border-radius: 20px;\n  margin-right: 1rem;\n  padding: 1rem;\n}\n\n#content .card > img {\n  max-width: 50%;\n  border-radius: 20px;\n}\n\n#content .card > .container {\n  display: flex;\n  flex-direction: column;\n  justify-items: center;\n  align-items: center;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -584,6 +739,300 @@ module.exports = styleTagTransform;
 
 /***/ }),
 
+/***/ "./src/inital-page.js":
+/*!****************************!*\
+  !*** ./src/inital-page.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _tab1Content__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tab1Content */ "./src/tab1Content.js");
+
+
+/**
+ *
+ * @param {Function} callBackFuntion
+ */
+let setUp = (callBackFuntion) => {
+  let contentElement = document.querySelector("#content");
+  let tabContentElement = document.createElement("div");
+
+  contentElement.append(
+    createSvgElement(),
+    createHeaderTitle(),
+    tabContentElement,
+    createPurchaseButton(),
+    createTabButton()
+  );
+  tabContentElement.setAttribute("class", "tabcontent");
+  tabContentElement.append((0,_tab1Content__WEBPACK_IMPORTED_MODULE_0__["default"])());
+  callBackFuntion();
+};
+
+/**
+ *
+ * @returns {HTMLHeadingElement}
+ */
+let createHeaderTitle = () => {
+  let headerTitle = document.createElement("h1");
+  headerTitle.classList.add("header");
+  headerTitle.textContent = "Losama";
+  return headerTitle;
+};
+
+/**
+ * @returns {HTMLDivElement}
+ */
+let createTabButton = () => {
+  // <div class="tab">
+  //       <button class="tab1">tab1</button>
+  //       <button class="tab2">tab2</button>
+  //       <button class="tab3">tab3</button>
+  //     </div>
+  let tab = document.createElement("div");
+  tab.classList.add("tab");
+  let tabButton1 = document.createElement("button");
+  tabButton1.classList.add("tab1");
+  tabButton1.textContent = "tab1";
+  tabButton1.classList.add("class", "buttontab");
+  let tabButton2 = document.createElement("button");
+  tabButton2.classList.add("tab2");
+  tabButton2.textContent = "tab2";
+  let tabButton3 = document.createElement("button");
+  tabButton3.classList.add("tab3");
+  tabButton3.textContent = "tab3";
+  tab.append(tabButton1, tabButton2, tabButton3);
+  return tab;
+};
+
+/**
+ *
+ * @returns {HTMLParagraphElement}
+ */
+let createPurchaseButton = () => {
+  let logoButton = document.createElement("button");
+  logoButton.classList.add("purchase");
+  logoButton.textContent = "Purchase";
+  return logoButton;
+};
+
+/**
+ *
+ * @returns {SVGElement}
+ */
+let createSvgElement = () => {
+  let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  svg.setAttribute("width", "24");
+  svg.setAttribute("height", "24");
+  svg.setAttribute("viewBox", "0 0 24 24");
+  svg.setAttribute("fill", "none");
+  svg.setAttribute("stroke", "white");
+  svg.setAttribute("stroke-width", "2");
+  svg.setAttribute("stroke-linecap", "round");
+  svg.setAttribute("stroke-linejoin", "round");
+  svg.setAttribute("class", "feather feather-coffee");
+  let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path.setAttribute("d", "M18 8h1a4 4 0 0 1 0 8h-1");
+  let path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  path2.setAttribute("d", "M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z");
+  let line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  line1.setAttribute("x1", "6");
+  line1.setAttribute("y1", "1");
+  line1.setAttribute("x2", "6");
+  line1.setAttribute("y2", "4");
+  let line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  line2.setAttribute("x1", "10");
+  line2.setAttribute("y1", "1");
+  line2.setAttribute("x2", "10");
+  line2.setAttribute("y2", "4");
+  let line3 = document.createElementNS("http://www.w3.org/2000/svg", "line");
+  line3.setAttribute("x1", "14");
+  line3.setAttribute("y1", "1");
+  line3.setAttribute("x2", "14");
+  line3.setAttribute("y2", "4");
+  svg.append(path, path2, line1, line2, line3);
+  return svg;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (setUp);
+
+
+/***/ }),
+
+/***/ "./src/tab1Content.js":
+/*!****************************!*\
+  !*** ./src/tab1Content.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ *
+ * @returns {HTMLParagraphElement}
+ */
+let createParagraphText = () => {
+  let paragraph = document.createElement("p");
+  paragraph.textContent = ` Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet consectetur
+      adipisicing elit. Nihil ratione doloremque tempore minus quis beatae?
+       Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit
+       ducimus earum ea, qui itaque eaque.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Labore quis quod eius, reiciendis ipsa, explicabo tenetur est sint accusantium cupiditate tempore qui consequatur similique velit! Molestias vel iusto praesentium temporibus!`;
+  return paragraph;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createParagraphText);
+
+
+/***/ }),
+
+/***/ "./src/tab2Content.js":
+/*!****************************!*\
+  !*** ./src/tab2Content.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _src_asset_img1_jpg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../src/asset/img1.jpg */ "./src/asset/img1.jpg");
+/* harmony import */ var _src_asset_img2_jpg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../src/asset/img2.jpg */ "./src/asset/img2.jpg");
+/* harmony import */ var _src_asset_img3_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../src/asset/img3.jpg */ "./src/asset/img3.jpg");
+
+
+
+
+/**
+ *
+ * @returns {Array<HTMLDivElement>}
+ */
+let createTab2Content = () => {
+  let prices = ["20.0$", "40.0$", "60.0$"];
+  let imgSources = [_src_asset_img1_jpg__WEBPACK_IMPORTED_MODULE_0__, _src_asset_img2_jpg__WEBPACK_IMPORTED_MODULE_1__, _src_asset_img3_jpg__WEBPACK_IMPORTED_MODULE_2__];
+  let nameOfCoffees = ["Brewed Coffee", "Cappuccino", "Cold Brew"];
+  let listOfCardCreated = [];
+  for (let i = 0; i < 3; i++) {
+    let card = document.createElement("div");
+    card.classList.add("card");
+
+    let imgOfCoffeeCard = document.createElement("img");
+    imgOfCoffeeCard.src = `${imgSources[i]}`;
+
+    let textFlexContainer = document.createElement("div");
+    textFlexContainer.classList.add("container");
+
+    let nameOfCoffee = document.createElement("h1");
+    nameOfCoffee.textContent = nameOfCoffees[i];
+
+    let priceOfCoffee = document.createElement("p");
+    priceOfCoffee.textContent = prices[i];
+
+    textFlexContainer.append(nameOfCoffee, priceOfCoffee);
+
+    card.append(imgOfCoffeeCard, textFlexContainer);
+    listOfCardCreated.push(card);
+  }
+  return listOfCardCreated;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createTab2Content);
+
+
+/***/ }),
+
+/***/ "./src/tab3Content.js":
+/*!****************************!*\
+  !*** ./src/tab3Content.js ***!
+  \****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/**
+ *
+ * @returns {{tableReservation:HTMLDivElement,openingHours:HTMLDivElement}}
+ */
+
+let createSchedulesView = () => {
+  //table reservation box
+  let tableReservation = document.createElement("div");
+  tableReservation.classList.add("tablereserve");
+
+  let tableReservationTitle = document.createElement("h1");
+  tableReservationTitle.classList.add("tableReservation");
+  tableReservationTitle.textContent = "TABLE RESERVATION...";
+
+  let phoneNumber = document.createElement("p");
+  phoneNumber.textContent = "(008) 01869018907";
+
+  let contantEmail = document.createElement("p");
+  contantEmail.textContent = "eyoelseleshizeyohannes@gmail.com";
+
+  let contactAddress = document.createElement("p");
+  contactAddress.textContent = "08744,Sadar pur 8973";
+
+  tableReservation.append(
+    tableReservationTitle,
+    phoneNumber,
+    contantEmail,
+    contactAddress
+  );
+
+  //open hours box
+  let openingHours = document.createElement("div");
+  openingHours.classList.add("openinghours");
+
+  let openingHoursTilte = document.createElement("h1");
+  openingHoursTilte.textContent = "OPENING HOURS...";
+
+  let weekSchedule = document.createElement("ul");
+
+  let listOfDaysInWeek = [
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+  ];
+
+  let listOfTimeAvailable = [
+    "9:00 - 18:00",
+    "10:00 - 18:00",
+    "11:00 - 18:00",
+    "12:00 - 18:00",
+    "14:00 - 18:00",
+    "16:00 - 18:00",
+    "CLOSED",
+  ];
+
+  for (let i = 0; i < 7; i++) {
+    let day = document.createElement("li");
+    day.textContent = `${listOfDaysInWeek[i]} ${listOfTimeAvailable[i]}`;
+    weekSchedule.appendChild(day);
+  }
+
+  openingHours.append(openingHoursTilte, weekSchedule);
+
+  let containerOfOpeningAndReserv = document.createElement("div");
+  containerOfOpeningAndReserv.classList.add("containeropenandreserv");
+  containerOfOpeningAndReserv.append(openingHours, tableReservation);
+  return containerOfOpeningAndReserv;
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (createSchedulesView);
+
+
+/***/ }),
+
 /***/ "./src/asset/bg.jpg":
 /*!**************************!*\
   !*** ./src/asset/bg.jpg ***!
@@ -591,6 +1040,36 @@ module.exports = styleTagTransform;
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 module.exports = __webpack_require__.p + "bg.jpg";
+
+/***/ }),
+
+/***/ "./src/asset/img1.jpg":
+/*!****************************!*\
+  !*** ./src/asset/img1.jpg ***!
+  \****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "img1.jpg";
+
+/***/ }),
+
+/***/ "./src/asset/img2.jpg":
+/*!****************************!*\
+  !*** ./src/asset/img2.jpg ***!
+  \****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "img2.jpg";
+
+/***/ }),
+
+/***/ "./src/asset/img3.jpg":
+/*!****************************!*\
+  !*** ./src/asset/img3.jpg ***!
+  \****************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "img3.jpg";
 
 /***/ })
 
@@ -739,14 +1218,114 @@ var __webpack_exports__ = {};
   \**********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
+/* harmony import */ var _inital_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./inital-page */ "./src/inital-page.js");
+/* harmony import */ var _tab2Content__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./tab2Content */ "./src/tab2Content.js");
+/* harmony import */ var _tab3Content__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./tab3Content */ "./src/tab3Content.js");
+/* harmony import */ var _tab1Content__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./tab1Content */ "./src/tab1Content.js");
+
+
+
+
 
 
 /**
  * @type {HTMLImageElement}
  */
 
+//Declarations
+let tabAlreadyClicked = "tab1";
+
+//made this so that when the elements are drawn by inital-page.js then it runs
+let callAfterInitialSetup = () => {
+  //get element
+  let tabButton1 = document.querySelector("#content .tab button.tab1");
+  let tabButton2 = document.querySelector("#content .tab button.tab2");
+  let tabButton3 = document.querySelector("#content .tab button.tab3");
+  let tabContent = document.querySelector("#content div.tabcontent");
+
+  //listeners
+  tabButton1.addEventListener("click", () => {
+    tabClicked(tabButton1);
+  });
+
+  tabButton2.addEventListener("click", () => {
+    tabClicked(tabButton2);
+  });
+
+  tabButton3.addEventListener("click", () => {
+    tabClicked(tabButton3);
+  });
+
+  //Functions
+  /**
+   *
+   * @param {HTMLButtonElement} button
+   */
+  let tabClicked = (button) => {
+    let buttonName = button.textContent;
+    console.log(buttonName);
+    switch (buttonName) {
+      case "tab1":
+        if (buttonName == tabAlreadyClicked) return;
+        clearAlreadyClickedTabButtons();
+        console.log(buttonName, tabAlreadyClicked);
+        tabButton1.classList.add("buttontab");
+        tabAlreadyClicked = "tab1";
+        //creates a paragraph if clicked
+        //p.s to save code duplication function is taken from inital-page.js
+        let paragraph = (0,_tab1Content__WEBPACK_IMPORTED_MODULE_4__["default"])();
+
+        tabContent.append(paragraph);
+        break;
+      case "tab2":
+        if (buttonName == tabAlreadyClicked) return;
+        clearAlreadyClickedTabButtons();
+        tabButton2.classList.add("buttontab");
+        tabAlreadyClicked = "tab2";
+        //creating card elements
+        let listOfCreatedCards = (0,_tab2Content__WEBPACK_IMPORTED_MODULE_2__["default"])();
+        // console.log(tabAlreadyClicked);
+        listOfCreatedCards.forEach((value) => {
+          tabContent.append(value);
+        });
+        break;
+      case "tab3":
+        if (buttonName == tabAlreadyClicked) return;
+        clearAlreadyClickedTabButtons();
+        console.log(buttonName, tabAlreadyClicked);
+        tabButton3.classList.add("buttontab");
+        tabAlreadyClicked = "tab3";
+
+        //creating schedules
+        let schedulesView = (0,_tab3Content__WEBPACK_IMPORTED_MODULE_3__["default"])();
+
+        tabContent.append(schedulesView);
+        break;
+      default:
+        console.log("Some thing wrong was in tab buttons", buttonName);
+    }
+  };
+
+  let clearAlreadyClickedTabButtons = () => {
+    if (tabButton1.classList.contains("buttontab")) {
+      tabButton1.classList.remove("buttontab");
+    } else if (tabButton2.classList.contains("buttontab")) {
+      tabButton2.classList.remove("buttontab");
+    } else if (tabButton3.classList.contains("buttontab")) {
+      tabButton3.classList.remove("buttontab");
+    }
+
+    while (tabContent.hasChildNodes()) {
+      tabContent.removeChild(tabContent.firstChild);
+    }
+  };
+};
+
+//initial Html setup
+(0,_inital_page__WEBPACK_IMPORTED_MODULE_1__["default"])(callAfterInitialSetup);
+
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=bundlee5d6479870028e39d556.js.map
+//# sourceMappingURL=bundlecf43ade51271fc7269ba.js.map

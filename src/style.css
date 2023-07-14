@@ -19,7 +19,7 @@ body {
     ),
     url(../src/asset/bg.jpg);
   color: #fff;
-  height: 100%;
+  min-height: 100%;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -29,11 +29,11 @@ body {
   align-items: center;
   display: grid;
   grid-template-rows: 1fr 3fr 3fr;
-  grid-template-columns: 1fr 3fr 1fr;
+  grid-template-columns: repeat(5, 1fr);
   grid-template-areas:
-    "logo . purchase"
-    ". title ."
-    ". paragraph .";
+    "logo tab tab tab purchase"
+    ". title title title ."
+    ". tabcontent tabcontent tabcontent .";
 }
 
 #content {
@@ -41,9 +41,17 @@ body {
   --focus-color: #f2c380;
 }
 
+@media only screen and (min-width: 1000px) {
+  #content {
+    padding: 6rem;
+  }
+}
+
 #content svg {
   grid-area: logo;
   width: 5rem;
+  display: block;
+  z-index: 3;
   height: 5rem;
   transition: all ease-in 400ms;
   filter: drop-shadow(0px 0px 10px var(--focus-color));
@@ -69,30 +77,155 @@ body {
   border-radius: 20px;
 }
 
+.buttontab {
+  background-color: var(--focus-color) !important;
+  color: #fff !important;
+  filter: drop-shadow(0px 0px 10px var(--focus-color));
+}
+
 #content button:hover {
   background-color: var(--focus-color);
   color: #fff;
   filter: drop-shadow(0px 0px 10px var(--focus-color));
 }
 
-#content h1 {
+#content > h1 {
   font-size: 8rem;
   grid-area: title;
   transition: all ease-in 300ms;
 }
 
-#content h1:hover {
+#content > h1:hover {
   color: var(--focus-color);
   filter: drop-shadow(0px 0px 20px var(--focus-color));
 }
 
-#content p {
-  grid-area: paragraph;
+#content div.tabcontent {
+  grid-area: tabcontent;
   align-self: self-start;
 }
 
-@media only screen and (min-width: 1000px) {
-  #content {
-    padding: 6rem;
+#content .tab {
+  grid-area: tab;
+}
+
+#content .tab .tab1,
+#content .tab .tab2,
+#content .tab .tab3 {
+  margin: 1.1rem;
+  padding: 1.3rem;
+}
+
+#content .tab .tab2,
+#content .tab .tab3 {
+  margin-left: 2rem;
+}
+
+#content .tabcontent .containeropenandreserv {
+  display: flex;
+  flex-direction: row;
+  min-width: 100%;
+  min-height: 100%;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-content: center;
+}
+
+#content .tabcontent .containeropenandreserv .openinghours {
+  background-color: #44251d;
+  padding: 3rem;
+  border-radius: 20px 0 0 20px;
+  min-height: 100%;
+}
+
+#content .tabcontent .containeropenandreserv .openinghours h1 {
+  margin-bottom: 1rem;
+}
+
+#content
+  .tabcontent
+  .containeropenandreserv
+  .openinghours
+  ul
+  li:not(
+    #content
+      .tabcontent
+      .containeropenandreserv
+      .openinghours
+      ul
+      li:last-of-type
+  ) {
+  margin-bottom: 1rem;
+}
+#content .tabcontent .containeropenandreserv .openinghours ul li {
+  list-style: none;
+}
+
+#content .tabcontent .containeropenandreserv .tablereserve {
+  background-color: #311b14;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  border-radius: 0 20px 20px 0;
+  padding: 1rem;
+}
+
+#content .tabcontent .card h1,
+#content .tabcontent .card p {
+  font-size: 1rem;
+  text-align: center;
+}
+
+#content .tabcontent .tab3 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-items: center;
+  align-items: center;
+}
+
+#content .tabcontent {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+}
+
+@media only screen and (max-width: 1328px) {
+  #content .tabcontent {
+    flex-direction: column;
   }
+  #content .tabcontent .card {
+    margin-right: 0;
+    margin-bottom: 1rem;
+  }
+}
+
+#content .card {
+  background-color: var(--coffee-color-one);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  align-items: center;
+  border-radius: 20px;
+  margin-right: 1rem;
+  padding: 1rem;
+}
+
+#content .card > img {
+  max-width: 50%;
+  border-radius: 20px;
+}
+
+#content .card > .container {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
